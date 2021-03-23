@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -37,6 +38,21 @@ namespace Business.Concrete
         public void Update(Color color)
         {
             _colorDal.Update(color);
+        }
+
+        IResult IColorService.Add(Color color)
+        {
+            throw new NotImplementedException();
+        }
+
+        IResult IColorService.Delete(Color color)
+        {
+            throw new NotImplementedException();
+        }
+
+        IResult IColorService.Update(Color color)
+        {
+            throw new NotImplementedException();
         }
     }
 }

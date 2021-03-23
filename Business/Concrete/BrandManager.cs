@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -37,6 +38,21 @@ namespace Business.Concrete
         public void Update(Brand brand)
         {
             _brandDal.Update(brand);
+        }
+
+        IResult IBrandService.Add(Brand brand)
+        {
+            throw new NotImplementedException();
+        }
+
+        IResult IBrandService.Delete(Brand brand)
+        {
+            throw new NotImplementedException();
+        }
+
+        IResult IBrandService.Update(Brand brand)
+        {
+            throw new NotImplementedException();
         }
     }
 }
