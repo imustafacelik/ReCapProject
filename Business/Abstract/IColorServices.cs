@@ -8,8 +8,8 @@ namespace Business.Abstract
 {
     public interface IColorService
     {
-        List<Color>GetAll();
-        List<Color> GetById(int id);
+        IDataResult<List<Color>>GetAll();
+        IDataResult<List<Color> >GetById(int id);
         IResult Add(Color color);
         IResult Update(Color color);
         IResult Delete(Color color);

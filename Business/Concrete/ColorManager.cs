@@ -15,42 +15,28 @@ namespace Business.Concrete
         {
             _colorDal = colorDal;
         }
-        public void Add(Color color)
-        {
-            _colorDal.Add(color);
-        }
 
-        public void Delete(Color color)
-        {
-            _colorDal.Delete(color);
-        }
-
-        public List<Color> GetAll()
-        {
-            return _colorDal.GetAll();
-        }
-
-        public List<Color> GetById(int id)
-        {
-            return _colorDal.GetAll(c => c.Id == id);
-        }
-
-        public void Update(Color color)
-        {
-            _colorDal.Update(color);
-        }
-
-        IResult IColorService.Add(Color color)
+        public IResult Add(Color color)
         {
             throw new NotImplementedException();
         }
 
-        IResult IColorService.Delete(Color color)
+        public IResult Delete(Color color)
         {
             throw new NotImplementedException();
         }
 
-        IResult IColorService.Update(Color color)
+        public IDataResult<List<Color>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDataResult<List<Color>> GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IResult Update(Color color)
         {
             throw new NotImplementedException();
         }

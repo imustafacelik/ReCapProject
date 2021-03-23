@@ -1,6 +1,5 @@
 ﻿using Business.Abstract;
 using Core.Utilities.Results;
-using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -8,35 +7,29 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    public class BrandManager : IBrandService
+    public class CustomerManager : ICustomerService
     {
-        IBrandDal _brandDal;
-        public BrandManager(IBrandDal brandDal)
-        {
-            _brandDal = brandDal;
-        }
-
-        public IResult Add(Brand brand)
+        public IResult Add(Customer customer)
         {
             throw new NotImplementedException();
         }
 
-        public IResult Delete(Brand brand)
+        public IResult Delete(Customer customer)
         {
             throw new NotImplementedException();
         }
 
-        public IDataResult<List<Brand>> GetAll()
+        public IDataResult<List<Customer>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public IDataResult<List<Brand>> GetById(int id)
+        public IDataResult<List<Customer>> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IResult Update(Brand brand)
+        public IResult Update(Customer customer)
         {
             throw new NotImplementedException();
         }

@@ -23,7 +23,7 @@ namespace Business.Concrete
             if (car.Description.Length > 2 && car.DailyPrice > 0)
             {
                 _carDal.Add(car);
-                return new ErrorResult(Messages.CarNameInvalid);
+                return new ErrorResult(Messages.CarAddedInvalid);
             }
 
                 _carDal.Add(car);
@@ -41,10 +41,10 @@ namespace Business.Concrete
         {
             if(DateTime.Now.Hour==22)
             {
-                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
+                return new ErrorDataResult<List<Car>>(Messages.CarAddedInvalid);
             }
             //Business code
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.ProductsListed);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.CarListed);
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
@@ -66,7 +66,7 @@ namespace Business.Concrete
         public IResult Update(Car car)
         {
             _carDal.Update(car);
-            return new SuccessResult(Messages.ProductsListed);
+            return new SuccessResult(Messages.CarUpdated);
         }
     }
 }

@@ -8,35 +8,34 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    public class BrandManager : IBrandService
+    public class UserManager : IUserService
     {
-        IBrandDal _brandDal;
-        public BrandManager(IBrandDal brandDal)
+        IUserDal _userDal;
+        public UserManager(IUserDal userDal)
         {
-            _brandDal = brandDal;
+            _userDal = userDal;
         }
-
-        public IResult Add(Brand brand)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IResult Delete(Brand brand)
+        public IResult Add(User user)
         {
             throw new NotImplementedException();
         }
 
-        public IDataResult<List<Brand>> GetAll()
+        public IResult Delete(User user)
         {
             throw new NotImplementedException();
         }
 
-        public IDataResult<List<Brand>> GetById(int id)
+        public IDataResult<List<User>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public IResult Update(Brand brand)
+        public IDataResult<List<User>> GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IResult Update(User user)
         {
             throw new NotImplementedException();
         }
