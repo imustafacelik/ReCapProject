@@ -15,7 +15,7 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(c => c.DailyPrice).GreaterThan(0);
             RuleFor(c => c.ModelName).Must(StartWithM).When(c=>c.BrandId==1);
 
-
+             
         }
 
         private bool StartWithM(string arg)
