@@ -24,6 +24,11 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
+            var result = _carDal.GetAll(c => c.BrandId==car.BrandId).Count;
+            if (result>15)
+            {
+                return new ErrorResult(Messages.CarAddedInvalid);
+            }
 
             //return new ErrorResult(Messages.CarAddedInvalid);
           
