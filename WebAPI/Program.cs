@@ -1,6 +1,5 @@
-using Autofac;
-using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
+using Autofac;
 using Business.DependencyResolvers.Autofac;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebTestAPI
+namespace WebAPI
 {
     public class Program
     {
@@ -22,11 +21,11 @@ namespace WebTestAPI
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                .ConfigureContainer<ContainerBuilder>(builder=>
-                {
-                    builder.RegisterModule(new AutofacBusinessModule());
-                })
+                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+            .ConfigureContainer<ContainerBuilder>(builder =>
+            {
+                builder.RegisterModule(new AutofacBusinessModule());
+            })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
