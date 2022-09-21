@@ -1,6 +1,8 @@
-﻿using Entities.Concrete;
+﻿using Core.Entities.Concrete;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Business.Constants
@@ -42,6 +44,15 @@ namespace Business.Constants
         public static string FailedRentalAdd = "Bu araba henüz teslim edilmediği için kiralayamazsınız!";
         public static string ReturnedRental = "Kiraladığınız araç teslim edildi";
         public static string RentalListed = "Kiralanan Araçlar Listelendi";
-        public static string MaintenanceTime="Bakım zamanı";
+        public static string MaintenanceTime = "Bakım zamanı";
+
+        public static string AuthorizationDenied = "Yetkilendirme Reddedildi";
+        public static string UserNotFound = "Kullanıcı Bulunamadı";
+        public static string PasswordError = "Şifre Hatalı";
+        public static string SuccessfulLogin = "Başarılı Giriş";
+        public static string UserAlreadyExists = "Kullanıcı zaten mevcut";
+        public static string AccessTokenCreated = "Token başarıyla oluşturuldu";
+        public static string UserRegistered = "Kullanıcı kayıt edildi";
+        public static string CarImageCountExceeded = "Araba resim sayısı limiti aşıldı";
     }
 }

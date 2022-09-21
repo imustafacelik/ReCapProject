@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,5 +25,17 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result.Message);    
         }
+
+        [HttpPost("add")]
+        public ActionResult Add(Car car)
+        {
+            var result = _carService.Add(car);
+            if (result.Success)
+            {
+                return Ok(result.Message);
+            }
+            return BadRequest(result.Message);
+        }
+
     }
 }

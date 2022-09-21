@@ -1,43 +1,56 @@
 ﻿using Business.Abstract;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
-using Entities.Concrete;
+using Core.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Business.Constants;
+using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
     public class UserManager : IUserService
     {
-        IUserDal _userDal;
+        private IUserDal _userDal;
+
         public UserManager(IUserDal userDal)
         {
             _userDal = userDal;
         }
+
+        //[ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
-            throw new NotImplementedException();
+            _userDal.Add(user);
+            return new SuccessResult(Messages.UserAdded);
         }
 
         public IResult Delete(User user)
         {
-            throw new NotImplementedException();
+            _userDal.Delete(user);
+            return new SuccessResult(Messages.UserDeleted);
         }
 
         public IDataResult<List<User>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<User>>(_userDal.GetAll());
         }
 
-        public IDataResult<List<User>> GetById(int id)
+        public User GetByMail(string email)
         {
-            throw new NotImplementedException();
+            return _userDal.Get(u => u.Email == email);
+        }
+
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return _userDal.GetClaims(user);
         }
 
         public IResult Update(User user)
         {
-            throw new NotImplementedException();
+            _userDal.Update(user);
+            return new SuccessResult(Messages.UserUpdated);
         }
     }
 }

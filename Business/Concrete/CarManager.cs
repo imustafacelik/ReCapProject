@@ -1,6 +1,10 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
@@ -14,6 +18,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
+using System.Transactions;
 
 namespace Business.Concrete
 {
@@ -27,14 +32,16 @@ namespace Business.Concrete
             _brandService = brandService;
         }
 
+        [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Car car)
         {
             IResult result = BusinessRules.Run(
                  CheckModelNameExist(car.ModelName),
                  CheckIfCarOfBrandCorrect(car.BrandId),
                  CheckIfBrandLimitExceded()
-                 ); 
+                 );
             if (result!=null)
             {
                 return result;
@@ -42,7 +49,7 @@ namespace Business.Concrete
 
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
- 
+
 
         }
 
@@ -52,10 +59,12 @@ namespace Business.Concrete
             _carDal.Delete(car);
             return new SuccessResult(Messages.CarDeleted);
         }
-
+        [PerformanceAspect(5)]
+        [CacheAspect]
+        [SecuredOperation("product.getall,admin")]
         public IDataResult<List<Car>> GetAll()
         {
-            if (DateTime.Now.Hour==21)
+            if (DateTime.Now.Hour==20)
             {
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
@@ -67,19 +76,20 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
-
+        [CacheAspect]
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId==id));
 
         }
-
+        [CacheAspect]
         public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
         }
 
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Update(Car car)
         {
             _carDal.Update(car);
@@ -108,12 +118,18 @@ namespace Business.Concrete
         private IResult CheckIfBrandLimitExceded()
         {
             var result = _brandService.GetAll();
-            
+
             if (result.Data.Count>15)
             {
                 return new ErrorResult(Messages.CarAddedInvalid);
             }
             return new SuccessResult();
+        }
+
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Car car)
+        {
+            return null;
         }
     }
 }
